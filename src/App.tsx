@@ -1,7 +1,8 @@
 import React from 'react';
+import Tasks from "./views/tasks";
 
 function App() {
-  return <h1>Trello</h1>;
+  return <Tasks/>;
 }
 
 export default App;

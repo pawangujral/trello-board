@@ -4,16 +4,26 @@ import Select from "./../../../components/forms/select";
 import Button from "./../../../components/button";
 import "./add.css";
 
+const categoryValues = ["start", "in-progress", "completed"];
+const tagsValues = ["designer", "developer", "QA", "devOps"];
+
 const Add: React.FC = () => {
     return (
-        <form>
-            <Input type="text" placeholder="Title"/>
-            <Input type="text" placeholder="Description"/>
-            <Select/>
-            <Input type="date"/>
-            <Select/>
-            <Button title="Save"/>
-        </form>
+        <div className="form-modal">
+            <h2>What you've in mind today?</h2>
+            <form>
+                <Input type="text" placeholder="Title" label="title"/>
+                <Input type="text" placeholder="Description" label="description"/>
+                <Select label="Tags" options={tagsValues}/>
+                <Input type="date" label="due date"/>
+                <Select label="category" options={categoryValues}/>
+                <div className="form-actions">
+                    <Button title="Save"/>
+                    <Button title="Close"/>
+                </div>
+               
+            </form>
+        </div>
     )
 };
 

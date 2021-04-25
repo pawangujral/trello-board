@@ -1,17 +1,20 @@
 import React from "react";
 import "./../form.css";
 
-const Select: React.FC = () => {
+interface selectProps {
+    label: string;
+    options: string[];
+}
+
+const Select: React.FC<selectProps> = ({label, options}: selectProps) => {
     return (
         <div className="form-group">
-            <label>Select</label>
+            <label>{label}</label>
             <select className="form-control">
                 <option value=""></option>
-                <option value="">Designer</option>
-                <option value="">Frontend Dev</option>
-                <option value="">Backend Dev</option>
-                <option value="">QA</option>
-                <option value="">DevOps</option>
+                {
+                    options.map(option => <option key={option} value={option}>{option}</option>)
+                } 
             </select>
         </div>
     )

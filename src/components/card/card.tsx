@@ -22,7 +22,7 @@ const Card: React.FC<cardProps> = ({data, handleEdit}: cardProps) => {
                             </p>
                            <h3>{tasks.title}</h3>
                            <p>{tasks.description}</p>
-                           <p className="card-date">Due: <span>{moment(tasks.dueDate).startOf('day').fromNow()}</span></p>
+                           <p className="card-date">Created on: <span>{moment(tasks.createDate).startOf('hour').fromNow()}</span></p>
                        </div>
                     )
                 })

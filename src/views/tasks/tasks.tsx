@@ -10,13 +10,13 @@ const defaultState = {
     id: null,
     title: "",
     description: "",
-    dueDate: null,
+    createDate: null,
     tags: "",
     status: ""
 }
 
 const Tasks: React.FC = () => {
-    const {data} = React.useContext(TaskContext);
+    const {tasks} = React.useContext(TaskContext);
     const [startTasks, setStartTasks] = React.useState<taskType[]>([]);
     const [inProgressTasks, setInProgressTasks] = React.useState<taskType[]>([]);
     const [completedTasks, setCompletedTasks] = React.useState<taskType[]>([]);
@@ -25,7 +25,7 @@ const Tasks: React.FC = () => {
 
     React.useEffect(() => {
         (() => {
-            const {tasks} = data
+            console.log(tasks);
             const startData = tasks.filter(task => task.status === "start");
             const progressData = tasks.filter(task => task.status === "inProgress");
             const comepletedData = tasks.filter(task => task.status === "completed");
@@ -34,11 +34,10 @@ const Tasks: React.FC = () => {
             setInProgressTasks(progressData);
             setCompletedTasks(comepletedData);
         })();
-    },[data]); 
+    },[tasks]); 
 
     // handle add new task fn
-    const handleAddModal = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+    const handleModal = (open: boolean) => {
         setModalData(defaultState);
         setModal(!openModal);
     }
@@ -53,7 +52,7 @@ const Tasks: React.FC = () => {
         <div className="wrapper">
             <div className="title-bar">
                 <h1>My Tasks</h1>
-                <Button title="add task" handleClick={handleAddModal}/>
+                <Button title="add task" handleClick={e => handleModal(true)}/>
             </div>
 
             <main>
@@ -62,7 +61,7 @@ const Tasks: React.FC = () => {
                     <List title="In progress..." data={inProgressTasks} handleEdit={handleEdit}/>
                     <List title="Completed" data={completedTasks} handleEdit={handleEdit}/>
                 </div>
-                {openModal && <Add handleModal={handleAddModal} preFill={modalData}/>}
+                {openModal && <Add handleModal={handleModal} preFill={modalData}/>}
             </main>
         </div>
     )

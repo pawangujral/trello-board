@@ -2,9 +2,9 @@ export type taskType = {
     id: number | null;
     title: string;
     description: string;
-    dueDate: Date | null;
+    createDate: Date | null;
     tags: string;
-    status: string;
+    status: string; 
 }
 
 type dataType = {

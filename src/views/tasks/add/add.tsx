@@ -2,7 +2,7 @@ import React from "react";
 import Input from "./../../../components/forms/input";
 import Select from "./../../../components/forms/select";
 import Button from "./../../../components/button";
-import {taskType} from "./../../../utils/types";
+import {taskType, contextType} from "./../../../utils/types";
 import {TaskContext} from "./../../../context/taskContext/taskStore";
 import "./add.css";
 
@@ -16,7 +16,7 @@ interface addProps {
 
 const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
     // @ts-ignore
-    const {handleTaskData, deleteTask} = React.useContext(TaskContext);
+    const {handleTaskData, deleteTask} = React.useContext<contextType>(TaskContext);
     const [formState, setFormState] = React.useState<taskType>(preFill);
     const [error, setError] = React.useState<boolean>(false);
 
@@ -39,8 +39,10 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
         setFormState(prevState => ({...prevState, [name]:value }))
     }
 
-    const handleDelete = (event: React.MouseEvent) => {
-        deleteTask(formState.id);
+    const handleDelete = () => {
+        if(formState.id) {
+            deleteTask(formState.id);
+        }   
     }
 
     return (

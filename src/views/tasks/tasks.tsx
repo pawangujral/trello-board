@@ -3,7 +3,7 @@ import List from "./list";
 import Add from "./add";
 import {TaskContext} from "./../../context/taskContext/taskStore";
 import Button from "./../../components/button";
-import {taskType} from "./../../utils/types";
+import {taskType, contextType} from "./../../utils/types";
 import "./tasks.css"; 
 
 const defaultState = {
@@ -16,7 +16,8 @@ const defaultState = {
 }
 
 const Tasks: React.FC = () => {
-    const {tasks} = React.useContext(TaskContext);
+    // @ts-ignore
+    const {tasks, handleLocalStorage} = React.useContext<contextType>(TaskContext);
     const [startTasks, setStartTasks] = React.useState<taskType[]>([]);
     const [inProgressTasks, setInProgressTasks] = React.useState<taskType[]>([]);
     const [completedTasks, setCompletedTasks] = React.useState<taskType[]>([]);
@@ -24,8 +25,7 @@ const Tasks: React.FC = () => {
     const [modalData, setModalData] = React.useState<taskType>(defaultState);
 
     React.useEffect(() => {
-        (() => {
-            console.log(tasks);
+        (() => { 
             const startData = tasks.filter(task => task.status === "start");
             const progressData = tasks.filter(task => task.status === "inProgress");
             const comepletedData = tasks.filter(task => task.status === "completed");
@@ -48,11 +48,23 @@ const Tasks: React.FC = () => {
         setModal(true);
     }
 
+    // save to local storage fn
+    const handleLocalState = (type: string) => {
+        // @ts-ignore
+        handleLocalStorage(type);
+    } 
+
     return (
         <div className="wrapper">
             <div className="title-bar">
-                <h1>My Tasks</h1>
-                <Button title="add task" handleClick={e => handleModal(true)}/>
+                <div>
+                    <h1>My Tasks</h1>
+                    <Button title="add task" handleClick={e => handleModal(true)}/>
+                </div>
+                <div className="button-group">
+                    <Button title="save your board" handleClick={e => handleLocalState("save")}/>
+                    <Button title="Clear your board" variant="text" handleClick={e => handleLocalState("delete")}/>
+                </div>
             </div>
 
             <main>

@@ -7,15 +7,9 @@ export type taskType = {
     status: string; 
 }
 
-type dataType = {
-    data: taskType[]
-}
-
 export type contextType = {
-    addTask: Function,
-    data: dataType,
-    deleteTask: Function,
-    fetch: Function,
-    saveState: Function,
-    updateTask: Function,
+    tasks: taskType[],
+    deleteTask: (id: number) => boolean,
+    handleTaskData: (data: taskType) => boolean,
+    handleLocalStorage: (type: string) => void 
 }

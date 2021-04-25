@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskContext, TASKS_DEFAULT_STATE } from "./taskStore";
-import {taskType} from "./../../utils/types";
+import {taskType, contextType} from "./../../utils/types";
+import {getStorageType, setStorageType, removeStorageType} from "./../../utils/storeHelper";
 
 interface providerProps {
     children: React.ReactNode;
@@ -9,9 +10,35 @@ interface providerProps {
 export const TaskProvider: React.FC<providerProps> = ({ children }: providerProps) => {
     const [state, setState] = React.useState(TASKS_DEFAULT_STATE);
 
-    // methods
-    const fetch = () => {
-        return "data fetching from localStorage";
+    React.useEffect(() => {
+        if(getStorageType("local", "trello-board-data")) {
+            const localData: { tasks: taskType[]} | string | boolean | null = getStorageType("local", "trello-board-data");
+            // setState(localData);
+            // @ts-ignore
+            setState(JSON.parse(localData));
+        }  
+    },[]);
+
+    const handleLocalStorage = (type: "save" | "delete") => {
+        switch(type) {
+            case "save" :
+                if(state.tasks.length) {
+                    setStorageType("local", "trello-board-data", JSON.stringify(state));
+                } else {
+                    console.log("No task found to save");
+                }
+            break;
+            case "delete" :
+                removeStorageType("local", "trello-board-data");
+                setState({tasks: []});
+            break;
+            default:
+                    break;
+        }
+
+
+        
+        return true;
     }
 
     const handleTaskData = (data: taskType) => {
@@ -54,16 +81,11 @@ export const TaskProvider: React.FC<providerProps> = ({ children }: providerProp
         return true;
     }
 
-    const saveState = () => {
-        return "Save data to localstorage";
-    }
-
     const methods = {
-        fetch,
+        handleLocalStorage,
         handleTaskData,
-        deleteTask,
-        saveState
+        deleteTask
     }
 
-    return <TaskContext.Provider value={{ ...state, ...methods }}>{children}</TaskContext.Provider>
+    return <TaskContext.Provider value={{ ...state, ...methods } as contextType}>{children}</TaskContext.Provider>
 }

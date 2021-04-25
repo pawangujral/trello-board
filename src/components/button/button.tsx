@@ -3,11 +3,12 @@ import "./button.css";
 
 interface buttonProps {
     title: string;
+    variant?: string;
 }
 
-const Button: React.FC<buttonProps> = ({title}: buttonProps) => {
+const Button: React.FC<buttonProps> = ({title, variant}: buttonProps) => {
     return (
-        <button>{title}</button>
+        <button className={variant}>{title}</button>
     )
 };
 

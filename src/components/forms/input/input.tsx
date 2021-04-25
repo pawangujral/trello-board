@@ -1,4 +1,5 @@
 import React from "react";
+import "./../form.css";
 
 interface inputProps {
     type: string,
@@ -7,7 +8,10 @@ interface inputProps {
 
 const Input: React.FC<inputProps> = ({type = "text", placeholder}: inputProps) => {
     return (
-        <input type={type} placeholder={placeholder}/>
+        <div className="form-group">
+            <label>{type}</label>
+            <input type={type} placeholder={placeholder} className="form-control"/>
+        </div>
     )
 };
 

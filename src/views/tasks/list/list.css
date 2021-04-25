@@ -1,0 +1,10 @@
+.list-wrapper h2 {
+    color: #8593b4;
+    font-weight: 300;
+}
+
+.list-area {
+    padding: 15px;
+    background-color: #f4f7f9;
+    border-radius: 15px;
+}

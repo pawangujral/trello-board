@@ -1,8 +1,11 @@
 import React from "react";
+import "./../form.css";
 
 const Select: React.FC = () => {
     return (
-        <select>
+        <div className="form-group">
+            <label>Select</label>
+            <select className="form-control">
                 <option value=""></option>
                 <option value="">Designer</option>
                 <option value="">Frontend Dev</option>
@@ -10,6 +13,7 @@ const Select: React.FC = () => {
                 <option value="">QA</option>
                 <option value="">DevOps</option>
             </select>
+        </div>
     )
 };
 

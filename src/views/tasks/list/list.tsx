@@ -1,14 +1,20 @@
 import React from "react";
+import Card from "./../../../components/card";
+import "./list.css"
 
-const List: React.FC = () => {
+interface listProps {
+    title: string;
+}
+
+const List: React.FC<listProps> = ({title}: listProps) => {
 
     return (
-        <>
-             <h2>To do</h2>
-                    <div>
-                      
-                    </div>
-        </>
+        <div className="list-wrapper">
+            <h2>{title}</h2> 
+            <div className="list-area">
+                <Card/>
+            </div>
+        </div>
     )
 };
 

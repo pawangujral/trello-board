@@ -1,0 +1,26 @@
+.wrapper {
+    padding: 30px;
+}
+
+.title-bar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    margin-bottom: 30px;
+}
+
+.title-bar h1{
+    font-size: 24px;
+    margin-right: 30px;
+    margin:0;
+    color: #333e57;
+}
+
+.title-bar button {
+    justify-self: flex-end;
+}
+
+.tasks-list-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap : 30px; 
+}

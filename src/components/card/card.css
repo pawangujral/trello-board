@@ -1,0 +1,29 @@
+.card {
+    background: #fff;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.card h3 {
+    text-transform: capitalize;
+    margin:15px 0 10px;
+}
+
+.card p {
+    color: #8593b4;
+    margin:0 0 10px;
+}
+
+.card .card-tags span {
+    display: inline-block;
+    font-size: 12px;
+    background: #dfe6ff;
+    color: #7a95f9;
+    padding: 5px 30px;
+    border-radius: 30px;
+}
+
+.card .card-date span {
+    color: #666;
+}

@@ -6,14 +6,15 @@ import "./list.css"
 interface listProps {
     title: string;
     data: taskType[];
+    handleEdit: (event: React.MouseEvent<HTMLButtonElement>, data: any) => void;
 }
 
-const List: React.FC<listProps> = ({title, data}: listProps) => {
+const List: React.FC<listProps> = ({title, data, handleEdit}: listProps) => {
     return (
         <div className="list-wrapper">
             <h2>{title}</h2> 
             <div className="list-area">
-                <Card data={data}/>
+                <Card data={data} handleEdit={handleEdit}/>
             </div>
         </div>
     )

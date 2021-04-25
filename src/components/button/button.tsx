@@ -4,11 +4,12 @@ import "./button.css";
 interface buttonProps {
     title: string;
     variant?: string;
+    handleClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button: React.FC<buttonProps> = ({title, variant}: buttonProps) => {
+const Button: React.FC<buttonProps> = ({title, variant, handleClick}: buttonProps) => {
     return (
-        <button className={variant}>{title}</button>
+        <button className={variant} onClick={handleClick}>{title}</button>
     )
 };
 

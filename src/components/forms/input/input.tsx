@@ -5,13 +5,16 @@ interface inputProps {
     type: string,
     placeholder?: string;
     label: string;
+    value?: string;
+    name: string;
+    onChange: (event: React.ChangeEvent<{ value: unknown, name: string }>) => void;
 }
 
-const Input: React.FC<inputProps> = ({type = "text", placeholder, label}: inputProps) => {
+const Input: React.FC<inputProps> = ({type = "text", placeholder, label, value, name, onChange}: inputProps) => {
     return (
         <div className="form-group">
             <label>{label}</label>
-            <input type={type} placeholder={placeholder} className="form-control"/>
+            <input type={type} name={name} placeholder={placeholder} className="form-control" value={value} onChange={onChange}/>
         </div>
     )
 };

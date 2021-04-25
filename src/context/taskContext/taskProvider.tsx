@@ -2,7 +2,7 @@ import React from "react";
 import {TaskContext, TASKS_DEFAULT_STATE} from "./taskStore";
 
 interface providerProps {
-    children: React.ReactNode
+    children: React.ReactNode;
 }
 
 export const TaskProvider: React.FC<providerProps> = ({children}: providerProps) => {
@@ -13,7 +13,8 @@ export const TaskProvider: React.FC<providerProps> = ({children}: providerProps)
         return "data fetching from localStorage";
     }
 
-    const addTask = () => {
+    const addTask = (data: any) => {
+        console.log(data);
         return "Add task";
     }
 
@@ -26,6 +27,7 @@ export const TaskProvider: React.FC<providerProps> = ({children}: providerProps)
     }
 
     const saveState = () => {
+      
         return "Save data to localstorage";
     }
 
@@ -33,7 +35,8 @@ export const TaskProvider: React.FC<providerProps> = ({children}: providerProps)
         fetch,
         addTask,
         updateTask,
-        deleteTask
+        deleteTask,
+        saveState
     }
 
     return <TaskContext.Provider value={{...state, ...methods}}>{children}</TaskContext.Provider>

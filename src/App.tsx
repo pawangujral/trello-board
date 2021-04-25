@@ -4,9 +4,9 @@ import {TaskProvider} from "./context/taskContext/taskProvider";
 
 function App() {
   return (
-      <TaskProvider>
-        <Tasks/>
-      </TaskProvider>
+    <TaskProvider>
+      <Tasks/>
+    </TaskProvider>
     )
 }
 

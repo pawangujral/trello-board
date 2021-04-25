@@ -19,3 +19,7 @@
 .form-actions button{
     margin-right: 30px;
 }
+
+.error {
+    color: red;
+}

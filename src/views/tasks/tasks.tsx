@@ -1,16 +1,27 @@
 import React from "react";
 import List from "./list";
-import {TaskContext} from "./../../context/taskContext/taskStore"
+import Add from "./add";
+import {TaskContext} from "./../../context/taskContext/taskStore";
 import Button from "./../../components/button";
 import {taskType} from "./../../utils/types";
 import "./tasks.css"; 
+
+const defaultState = {
+    id: null,
+    title: "",
+    description: "",
+    dueDate: null,
+    tags: "",
+    status: ""
+}
 
 const Tasks: React.FC = () => {
     const {data} = React.useContext(TaskContext);
     const [startTasks, setStartTasks] = React.useState<taskType[]>([]);
     const [inProgressTasks, setInProgressTasks] = React.useState<taskType[]>([]);
     const [completedTasks, setCompletedTasks] = React.useState<taskType[]>([]);
-
+    const [openModal, setModal] = React.useState<boolean>(false);
+    const [modalData, setModalData] = React.useState<taskType>(defaultState);
 
     React.useEffect(() => {
         (() => {
@@ -19,35 +30,39 @@ const Tasks: React.FC = () => {
             const progressData = tasks.filter(task => task.status === "inProgress");
             const comepletedData = tasks.filter(task => task.status === "completed");
 
-            console.log(startTasks);
-            console.log(inProgressTasks);
-            console.log(completedTasks);
-
             setStartTasks(startData);
             setInProgressTasks(progressData);
             setCompletedTasks(comepletedData);
         })();
-    },[]);
+    },[data]); 
 
+    // handle add new task fn
+    const handleAddModal = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setModalData(defaultState);
+        setModal(!openModal);
+    }
 
-    console.log(startTasks);
-    console.log(inProgressTasks);
-    console.log(completedTasks);
+    // Handle Card Edit fn
+    const handleEdit = (event: React.MouseEvent<HTMLButtonElement>, data: taskType) => {
+        setModalData(data);
+        setModal(true);
+    }
 
     return (
         <div className="wrapper">
             <div className="title-bar">
                 <h1>My Tasks</h1>
-                <Button title="add task"/>
+                <Button title="add task" handleClick={handleAddModal}/>
             </div>
 
             <main>
                 <div className="tasks-list-wrapper">
-                    <List title="To do" data={startTasks}/> 
-                    <List title="In progress..." data={inProgressTasks}/>
-                    <List title="Completed" data={completedTasks}/>
+                    <List title="To do" data={startTasks} handleEdit={handleEdit}/> 
+                    <List title="In progress..." data={inProgressTasks} handleEdit={handleEdit}/>
+                    <List title="Completed" data={completedTasks} handleEdit={handleEdit}/>
                 </div>
-                {/* <Add/> */}
+                {openModal && <Add handleModal={handleAddModal} preFill={modalData}/>}
             </main>
         </div>
     )

@@ -15,23 +15,32 @@ const defaultState = {
     status: ""
 }
 
+const taskDataDefaultState = {
+    start: [],
+    inProgress: [],
+    completed: []
+}
+
+type taskDataType = {
+    start: taskType[],
+    inProgress: taskType[],
+    completed: taskType[]
+}
+
 const Tasks: React.FC = () => {
     const {tasks, handleLocalStorage} = React.useContext<contextType>(TaskContext);
-    const [startTasks, setStartTasks] = React.useState<taskType[]>([]);
-    const [inProgressTasks, setInProgressTasks] = React.useState<taskType[]>([]);
-    const [completedTasks, setCompletedTasks] = React.useState<taskType[]>([]);
+    const [taskData, setTaskData] = React.useState<taskDataType>(taskDataDefaultState);
     const [openModal, setModal] = React.useState<boolean>(false);
-    const [modalData, setModalData] = React.useState<taskType>(defaultState);
+    const [modalData, setModalData] = React.useState<taskType>(defaultState); 
 
     React.useEffect(() => {
         (() => { 
+            // divide each category for respective state
             const startData = tasks.filter(task => task.status === "start");
             const progressData = tasks.filter(task => task.status === "inProgress");
             const comepletedData = tasks.filter(task => task.status === "completed");
 
-            setStartTasks(startData);
-            setInProgressTasks(progressData);
-            setCompletedTasks(comepletedData);
+            setTaskData({start: [...startData], inProgress: [...progressData], completed: [...comepletedData]}); 
         })();
     },[tasks]); 
 
@@ -49,8 +58,14 @@ const Tasks: React.FC = () => {
 
     // save to local storage fn
     const handleLocalState = (type: string) => {
-        handleLocalStorage && handleLocalStorage(type);
-    } 
+        if(handleLocalStorage) {
+            const isSuccess = handleLocalStorage(type); 
+
+            if(isSuccess) {
+                // TODO : add toast message
+            }
+        } 
+    }  
 
     return (
         <div className="wrapper">
@@ -67,12 +82,12 @@ const Tasks: React.FC = () => {
 
             <main>
                 <div className="tasks-list-wrapper">
-                    <List title="To do" data={startTasks} handleEdit={handleEdit}/> 
-                    <List title="In progress..." data={inProgressTasks} handleEdit={handleEdit}/>
-                    <List title="Completed" data={completedTasks} handleEdit={handleEdit}/>
+                    <List title="To do" data={taskData.start} handleEdit={handleEdit}/> 
+                    <List title="In progress..." data={taskData.inProgress} handleEdit={handleEdit}/>
+                    <List title="Completed" data={taskData.completed} handleEdit={handleEdit}/>
                 </div>
                 {openModal && <Add handleModal={handleModal} preFill={modalData}/>}
-            </main>
+            </main> 
         </div>
     )
 };

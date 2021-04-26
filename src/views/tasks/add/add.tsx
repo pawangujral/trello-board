@@ -29,13 +29,18 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
             }
         }
         setError(false);
-        handleTaskData && handleTaskData(formState);
-        handleModal(false);
+         if(handleTaskData) {
+              const isSuccess = handleTaskData(formState);
+              if(isSuccess) {
+                  // TODO : add toast message
+              }
+              handleModal(false);
+         }
     }
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown, name: string }>) => {
         const {name, value} = event.target;
-        setFormState(prevState => ({...prevState, [name]:value }))
+        setFormState(prevState => ({...prevState, [name]:value }));
     }
 
     const handleDelete = () => {

@@ -1,46 +1,212 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Trello board
 
-## Available Scripts
+Trello is task management tool where user can easily create todo tasks with different categories.
 
-In the project directory, you can run:
+## Getting Started
 
-### `yarn start`
+Unzip trello-board to a destination folder. The application is built on React framework.
+
+### Install
+To install project dependencies, you can run at root folder:
+
+```bash
+cd trello-board
+yarn 
+
+OR
+
+cd trello-board
+npm install 
+``` 
+
+#### Third-party utility libraries list
+
+The project is using `momentjs` for data & time formatting.
+
+### Start
+To start the project In the project directory, you can run:
+
+```bash 
+yarn start
+
+OR
+
+npm run start
+```
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3000](http://localhost:3000) to view it in the browser. The page will reload if you make edits. You will also see any lint errors in the console.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Build
 
-### `yarn test`
+```bash 
+yarn build
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+OR
 
-### `yarn build`
+npm run build
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the app for production to the `build` folder. You can run with static local server on mac.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+cd build
+python -m SimpleHTTPServer 8000
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Open [http://localhost:8000](http://localhost:8000) to view it in the browser.
+It correctly bundles React in production mode and optimizes the build for the best performance. The build is minified and the filenames include the hashes. Your app is ready to be deployed!
 
-### `yarn eject`
+### App Responsiveness
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Application is fully responsive in nature using @media queries.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Project structure | Type - Typescript | Description 
+- components - Non-functional partial views that are reused in multiple screens across the application.
+- views - Functional partial/whole views that are used to present UX on-screen.
+- utils - helper functions
+- context - Application context management using React useConext hooks
+- __tests__ - Folder to place functional/unit test cases.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Folder structure
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+All component folders must follow below structure to keep consistancy in project.
 
-## Learn More
+```bash
+├── componentFolderName
+    ├── componentFolderName.tsx
+    ├── componentFolderName.css
+    ├── index.ts
+    ├── __tests__
+        ├── componentFolderName.test.tsx
+```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Project src folder
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+All project related assets (image/icons) are in `public/assets` folder.
+
+```bash
+order-tracking
+├── README.md
+├── node_modules
+├── package.json
+├── .gitignore
+├── public
+│   ├── favicon.ico
+│   ├── index.html
+│   └── manifest.json
+├── src
+    ├── app.tsx
+    ├── index.css
+    ├── index.tsx
+    ├── react-app-env.d.ts
+    ├── reportWebVitals.ts
+    ├── setupTests.ts
+    ├── __tests__
+        ├── app.test.tsx
+    ├── components
+        ├── button
+        │    ├── button.css
+        │    ├── button.tsx
+        │    ├── index.ts
+        │    ├── __tests__
+        │        ├── button.test.tsx
+        ├── card
+        │    ├── card.css
+        │    ├── card.tsx
+        │    ├── index.ts
+        │    ├── __tests__
+        │        ├── card.test.tsx
+        ├── forms
+            ├── input
+            │    ├── input.css
+            │    ├── input.tsx
+            │    ├── index.ts
+            │    ├── __tests__
+            │        ├── input.test.tsx
+            ├── select
+                ├── select.css
+                ├── select.tsx
+                ├── index.ts
+                ├── __tests__
+                    ├── select.test.tsx
+    ├── context 
+        ├── taskContext
+            ├── taskProvider.tsx
+            ├── taskStore.ts
+            ├── __tests__
+                ├── taskProvider.test.tsx
+    ├── utils 
+        ├── constants.ts
+        ├── types.ts
+        ├── storeHelper.ts
+    ├── views
+        ├── tasks
+        │    ├── tasks.tsx
+        │    ├── tasks.css
+        │    ├── index.ts
+        │    ├── __tests__
+        │        ├── tasks.test.tsx
+        ├── list
+        │    ├── list.css
+        │    ├── list.tsx
+        │    ├── index.ts
+        │    ├── __tests__
+        │            ├── list.test.tsx
+        ├── add
+           ├── add.css
+           ├── add.tsx
+           ├── index.ts
+           ├── __tests__
+                ├── add.test.tsx
+    
+```
+
+## Testing
+
+Testing is done with jest & react testing library. all test cases are placed in `__tests__` of each component's root folder.
+
+*Note: this is currently in TODO list & not yet implemented.* 
+
+e.g : 
+```bash
+├── __tests__
+    ├── app.test.tsx
+```
+
+For code coverage run:
+
+```bash 
+yarn test 
+Or 
+npm run test
+
+// To generate coverage report add following to package.json test script. it will be generate in coverage folder at root level.
+
+  "test": "react-scripts test --coverage",
+
+```
+
+You can use testing method like `getByText`, `getByTestID`, `getByTitle`, `getAllByLabelText` & more to interact with DOM elements to write test cases.
+
+### Locale i18n support 
+
+For locale, you can use [Format js](https://formatjs.io/docs/getting-started/installation/) library. formatjs is a set of libraries that help you set up internationalization in any project.
+
+*Note: this is currently in TODO list & not yet implemented.* 
+
+## Links
+- [React](https://reactjs.org/)
+- [momentjs](https://momentjs.com/)
+- [React Testing Libary](https://testing-library.com/docs/react-testing-library/intro/)
+
+## Next additional features/functionalites
+
+- Include notification custom hooks for toast messsages
+- Task filtering functionality (Search, etc)
+- Unit test cases
+- Usability implmentation (fully ADA compliance)
+- Locale support for different languages
+- Add linting support
+- husky package for sanity before code pushing to repository

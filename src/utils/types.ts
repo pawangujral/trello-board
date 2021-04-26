@@ -11,5 +11,5 @@ export type contextType = {
     tasks: taskType[],
     deleteTask?: (id: number) => boolean,
     handleTaskData?: (data: taskType) => boolean,
-    handleLocalStorage?: (type: string) => void 
+    handleLocalStorage?: (type: string) => boolean 
 }

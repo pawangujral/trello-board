@@ -1,7 +1,7 @@
 import React from "react";
 import {taskType, contextType} from "./../../utils/types";
 
-export const TASKS_DEFAULT_STATE: {tasks: taskType[]} = {
+export const TASKS_DEFAULT_STATE: contextType = {
     tasks: []
 };
 

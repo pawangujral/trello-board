@@ -13,7 +13,6 @@ export function removeStorageType(type: "local"| "session", key: string) {
 }
 
 export function getStorageType(type: "local"| "session", key: string) {
-    console.log(type, key);
     switch(type) {
         case "local": 
             return localStorage.getItem(key);

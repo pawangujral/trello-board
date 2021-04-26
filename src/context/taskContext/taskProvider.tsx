@@ -1,6 +1,7 @@
 import React from "react";
 import { TaskContext, TASKS_DEFAULT_STATE } from "./taskStore";
 import {taskType, contextType} from "./../../utils/types";
+import {LOCAL_STORAGE_KEY} from "./../../utils/constants";
 import {getStorageType, setStorageType, removeStorageType} from "./../../utils/storeHelper";
 
 interface providerProps {
@@ -8,36 +9,32 @@ interface providerProps {
 }
 
 export const TaskProvider: React.FC<providerProps> = ({ children }: providerProps) => {
-    const [state, setState] = React.useState(TASKS_DEFAULT_STATE);
+    const [state, setState] = React.useState<contextType>(TASKS_DEFAULT_STATE);
 
     React.useEffect(() => {
-        if(getStorageType("local", "trello-board-data")) {
-            const localData: { tasks: taskType[]} | string | boolean | null = getStorageType("local", "trello-board-data");
-            // setState(localData);
-            // @ts-ignore
-            setState(JSON.parse(localData));
+        if(getStorageType("local", LOCAL_STORAGE_KEY)) {
+            const localData: { tasks: taskType[]} | string | boolean | null = getStorageType("local", LOCAL_STORAGE_KEY);
+            localData && setState(JSON.parse(localData));
         }  
     },[]);
 
-    const handleLocalStorage = (type: "save" | "delete") => {
+    const handleLocalStorage = (type: string) => {
         switch(type) {
             case "save" :
                 if(state.tasks.length) {
-                    setStorageType("local", "trello-board-data", JSON.stringify(state));
+                    setStorageType("local", LOCAL_STORAGE_KEY, JSON.stringify(state));
                 } else {
                     console.log("No task found to save");
                 }
             break;
             case "delete" :
-                removeStorageType("local", "trello-board-data");
+                removeStorageType("local", LOCAL_STORAGE_KEY);
                 setState({tasks: []});
             break;
             default:
                     break;
         }
 
-
-        
         return true;
     }
 
@@ -62,7 +59,7 @@ export const TaskProvider: React.FC<providerProps> = ({ children }: providerProp
             setState({ tasks: [...updatedTasks] });
         } else {
             // Increment Task ID for new Task & add current Time
-            data.id = tasks.length + 1;
+            data.id = Math.floor((Math.random() * 1000) + 1);
             data.createDate = new Date();
             setState({ tasks: [...tasks, data]});
         }
@@ -87,5 +84,5 @@ export const TaskProvider: React.FC<providerProps> = ({ children }: providerProp
         deleteTask
     }
 
-    return <TaskContext.Provider value={{ ...state, ...methods } as contextType}>{children}</TaskContext.Provider>
+    return <TaskContext.Provider value={{ ...state, ...methods }}>{children}</TaskContext.Provider>
 }

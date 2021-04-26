@@ -15,7 +15,6 @@ interface addProps {
 }
 
 const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
-    // @ts-ignore
     const {handleTaskData, deleteTask} = React.useContext<contextType>(TaskContext);
     const [formState, setFormState] = React.useState<taskType>(preFill);
     const [error, setError] = React.useState<boolean>(false);
@@ -30,7 +29,7 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
             }
         }
         setError(false);
-        handleTaskData(formState);
+        handleTaskData && handleTaskData(formState);
         handleModal(false);
     }
 
@@ -41,7 +40,8 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
 
     const handleDelete = () => {
         if(formState.id) {
-            deleteTask(formState.id);
+            deleteTask && deleteTask(formState.id);
+            handleModal(false);
         }   
     }
 
@@ -52,10 +52,10 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
                 <Button title="X" variant="icon" handleClick={e => handleModal(false)}/>
             </div>
             <form onSubmit={handleSubmit}>
-                <Input type="text" name="title" placeholder="Title" label="title" value={formState.title} onChange={handleChange}/>
-                <Input type="text" name="description" placeholder="Description" label="description" value={formState.description}  onChange={handleChange}/>
-                <Select label="Tags" name="tags" options={tagsValues} value={formState.tags}  onChange={handleChange}/>
-                <Select label="category" name="status" options={categoryValues}  value={formState.status}  onChange={handleChange}/>
+                <Input type="text" name="title" placeholder="Title" label="title*" value={formState.title} onChange={handleChange}/>
+                <Input type="text" name="description" placeholder="Description" label="description*" value={formState.description}  onChange={handleChange}/>
+                <Select label="Tags*" name="tags" options={tagsValues} value={formState.tags}  onChange={handleChange}/>
+                <Select label="category*" name="status" options={categoryValues}  value={formState.status}  onChange={handleChange}/>
                 {error && <p className="error">* All fields are required</p>}
                 <div className="form-actions">
                     <Button title="Save" type="submit"/>

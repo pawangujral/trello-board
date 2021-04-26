@@ -22,6 +22,20 @@
     color: #7a95f9;
     padding: 5px 30px;
     border-radius: 30px;
+    font-weight: 600;
+}
+ 
+.card .card-tags.developer {
+    background: rgba(117, 18, 137, .1);
+    color: #751289;
+}
+.card .card-tags.devOps {
+    background: #beccf1;
+    color: #15285a;
+}
+.card .card-tags.QA {
+    background: #D7ECFF;
+    color: #2d5375;
 }
 
 .card .card-header {

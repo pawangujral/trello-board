@@ -16,7 +16,6 @@ const defaultState = {
 }
 
 const Tasks: React.FC = () => {
-    // @ts-ignore
     const {tasks, handleLocalStorage} = React.useContext<contextType>(TaskContext);
     const [startTasks, setStartTasks] = React.useState<taskType[]>([]);
     const [inProgressTasks, setInProgressTasks] = React.useState<taskType[]>([]);
@@ -50,8 +49,7 @@ const Tasks: React.FC = () => {
 
     // save to local storage fn
     const handleLocalState = (type: string) => {
-        // @ts-ignore
-        handleLocalStorage(type);
+        handleLocalStorage && handleLocalStorage(type);
     } 
 
     return (

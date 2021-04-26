@@ -17,7 +17,7 @@ const Card: React.FC<cardProps> = ({data, handleEdit}: cardProps) => {
                     return (
                         <div className="card" key={tasks.id} data-id={tasks.id}>
                            <p className="card-header">
-                               <span className="card-tags">{tasks.tags}</span>
+                               <span className={`card-tags ${tasks.tags}`}>{tasks.tags}</span>
                                <Button title="Edit" variant="text" handleClick={e => handleEdit(e,tasks)}/>
                             </p>
                            <h3>{tasks.title}</h3>

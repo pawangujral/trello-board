@@ -51,7 +51,7 @@ const Add: React.FC<addProps> = ({handleModal, preFill}: addProps) => {
     }
 
     return (
-        <div className="form-modal">
+        <div className="form-modal" tabIndex={1}>
             <div className="form-header">
                 <h2>What you've in mind today?</h2>
                 <Button title="X" variant="icon" handleClick={e => handleModal(false)}/>

@@ -21,13 +21,8 @@ export const TaskProvider: React.FC<providerProps> = ({ children }: providerProp
     const handleLocalStorage = (type: string) => {
         switch(type) {
             case "save" :
-                if(state.tasks.length) {
-                    setStorageType("local", LOCAL_STORAGE_KEY, JSON.stringify(state));
-                    return true;
-                } else {
-                    console.log("No task found to save");
-                    return false;
-                } 
+                setStorageType("local", LOCAL_STORAGE_KEY, JSON.stringify(state));
+                return true;
             case "delete" :
                 removeStorageType("local", LOCAL_STORAGE_KEY);
                 setState({tasks: []});

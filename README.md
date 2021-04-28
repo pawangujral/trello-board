@@ -13,6 +13,7 @@ Open bash/terminal and type following lines in your prefered folder (Make sure G
 
 ```bash
 git clone https://github.com/pawangujral/trello-board-react.git
+cd trello-board-react
 
 // check git current branch
 git branch
@@ -26,12 +27,12 @@ git checkout feature/trello-board
 To install project dependencies, you can run at root folder:
 
 ```bash
-cd trello-board
+cd trello-board-react
 yarn 
 
 OR
 
-cd trello-board
+cd trello-board-react
 npm install 
 ``` 
 

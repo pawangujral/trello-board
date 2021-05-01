@@ -1,0 +1,27 @@
+{
+  "name": "trello-board-server",
+  "version": "1.0.0",
+  "description": "trello board backend with graphQL & mongoDB",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "nodemon src/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pawangujral/trello-board-react.git"
+  },
+  "author": "Pawan Gujral",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pawangujral/trello-board-react/issues"
+  },
+  "homepage": "https://github.com/pawangujral/trello-board-react#readme",
+  "dependencies": {
+    "apollo-server": "^2.24.0",
+    "cors": "^2.8.5",
+    "graphql": "^15.5.0",
+    "nodemon": "^2.0.7",
+    "uuid": "^8.3.2"
+  }
+}

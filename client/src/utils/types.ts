@@ -13,3 +13,13 @@ export type contextType = {
     handleTaskData?: (data: taskType) => boolean,
     handleLocalStorage?: (type: string) => boolean 
 }
+
+export type toastType = {
+    message: string;
+    variant?: "default" | "success" | "warning" | "error";
+}
+
+export type  toastTypeContext =  {
+    toasts: toastType[];
+    addToast?: (toast: toastType)  => void;
+}

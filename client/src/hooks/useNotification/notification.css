@@ -1,0 +1,7 @@
+.toast-wrapper {
+    position: fixed;
+    background: transparent;
+    bottom: 15px;
+    left: 15px;
+
+}

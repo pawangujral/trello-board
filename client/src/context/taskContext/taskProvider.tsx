@@ -8,6 +8,44 @@ interface providerProps {
     children: React.ReactNode;
 }
 
+type TASKACTION = 
+    |   {type: TASK_ACTIONS.ADD, payload: taskType}
+    |   {type: TASK_ACTIONS.UPDATE, payload: taskType}
+    |   {type: TASK_ACTIONS.DELETE, payload: taskType}
+    |   {type: TASK_ACTIONS.FETCH, payload: taskType}
+
+enum TASK_ACTIONS {
+    ADD = "ADD",
+    UPDATE = "UPDATE",
+    DELETE = "DELETE",
+    FETCH = "FETCH"
+}
+
+const taskReducer = (state: taskType, action: TASKACTION ) => {
+    switch (action.type) {
+        case TASK_ACTIONS.ADD:
+            return {
+                ...state, 
+                ...action.payload
+            }
+        case TASK_ACTIONS.UPDATE:
+            return {
+                ...state, 
+                ...action.payload
+            }
+        case TASK_ACTIONS.DELETE:
+            return {
+                ...state, 
+                ...action.payload
+            }
+        case TASK_ACTIONS.FETCH:
+            return {
+                ...state 
+            }
+
+    }
+}
+
 export const TaskProvider: React.FC<providerProps> = ({ children }: providerProps) => {
     const [state, setState] = React.useState<contextType>(TASKS_DEFAULT_STATE);
 
@@ -80,4 +118,4 @@ export const TaskProvider: React.FC<providerProps> = ({ children }: providerProp
     }
 
     return <TaskContext.Provider value={{ ...state, ...methods }}>{children}</TaskContext.Provider>
-}
+} 

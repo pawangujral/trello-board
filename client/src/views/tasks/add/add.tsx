@@ -5,7 +5,19 @@ import Button from "./../../../components/button";
 import {taskType, contextType} from "./../../../utils/types";
 import {TaskContext} from "./../../../context/taskContext/taskStore";
 import {useParams, useHistory} from "react-router-dom";
+import useNotification from "./../../../hooks/useNotification";
+import { FiTrash2, FiSave } from "react-icons/fi";
+import {Link} from "react-router-dom";
 import "./add.css";
+
+const defaultState = {
+    id: null,
+    title: "",
+    description: "",
+    createDate: null,
+    tags: "",
+    status: ""
+}
 
 const categoryValues = ["start", "inProgress", "completed"];
 const tagsValues = ["designer", "developer", "QA", "devOps"];
@@ -13,29 +25,20 @@ const tagsValues = ["designer", "developer", "QA", "devOps"];
 const Add: React.FC = () => {
     let { id } = useParams() as any; 
     const history = useHistory() as any;
+    const {addToast} = useNotification();
     const {tasks} = React.useContext<contextType>(TaskContext);
-
     const {handleTaskData, deleteTask} = React.useContext<contextType>(TaskContext);
-    const [formState, setFormState] = React.useState<taskType>({
-        id: null,
-        title: "",
-        description: "",
-        tags: "",
-        createDate: null,
-        status: "" 
-    });
-    const [error, setError] = React.useState<boolean>(false);
+    const [formState, setFormState] = React.useState<taskType>(defaultState);
 
 
     React.useEffect(() => {
-        if(id) {
-            console.log(id);
-            console.log(tasks);
-            // const updatedTasks = tasks.filter(task => task.id === id);
-            // console.log(updatedTasks);
-            // setFormState({...updatedTasks[0]});
+        if(id) { 
+            if(tasks.length) { 
+                const updatedTasks = tasks.filter(task => task.id !== id); 
+                updatedTasks.length && setFormState({...updatedTasks[0]});
+            }
         }
-    },[])
+    },[tasks, id])
 
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -43,17 +46,19 @@ const Add: React.FC = () => {
         // Check if any of field is empty
         for(let [key, value] of Object.entries(formState)) {
             if(value === "") {
-                setError(true);
+                addToast && addToast({message: "* All fields are required", variant: "warning"});
                 return false;
             }
         }
-        setError(false);
          if(handleTaskData) {
               const isSuccess = handleTaskData(formState);
               if(isSuccess) {
                 history.push("/task"); 
+                addToast && addToast({message: "New task added", variant: "success"});
               } 
          }
+
+       
     }
 
     const handleChange = (event: React.ChangeEvent<{ value: unknown, name: string }>) => {
@@ -74,7 +79,9 @@ const Add: React.FC = () => {
                 <div>
                     <h1>What you've in mind today?</h1> 
                 </div>
-                <div className="button-group"></div>
+                <div className="button-group">
+                    <Link to="/task">Back to tasks</Link>
+                </div>
             </header>
 
             <main>
@@ -84,10 +91,9 @@ const Add: React.FC = () => {
                         <Input type="text" name="description" placeholder="Description" label="description*" value={formState.description}  onChange={handleChange}/>
                         <Select label="Tags*" name="tags" options={tagsValues} value={formState.tags}  onChange={handleChange}/>
                         <Select label="category*" name="status" options={categoryValues}  value={formState.status}  onChange={handleChange}/>
-                        {error && <p className="error">* All fields are required</p>}
                         <div className="form-actions">
-                            <Button title="Save" type="submit"/>
-                            {formState.id && <Button title="Delete" variant="text" handleClick={handleDelete}/>}         
+                            <Button type="submit"><FiSave/> Save</Button>
+                            {formState.id && <Button variant="text" handleClick={handleDelete}><FiTrash2/> Delete</Button>}         
                         </div>
                     
                     </form>

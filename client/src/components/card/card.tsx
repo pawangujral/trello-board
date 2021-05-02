@@ -1,8 +1,9 @@
 import React from "react";
 import {taskType} from "./../../utils/types";
-import moment from "moment";
-import Button from "./../button";
+import moment from "moment"; 
 import {Link} from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
+
 import "./card.css";
 
 interface cardProps {
@@ -18,7 +19,7 @@ const Card: React.FC<cardProps> = ({data}: cardProps) => {
                         <div className="card" key={tasks.id} data-id={tasks.id}>
                            <p className="card-header">
                                <span className={`card-tags ${tasks.tags}`}>{tasks.tags}</span>
-                               <Link to={`/task/edit/${tasks.id}`}>Edit</Link>
+                               <Link to={`/task/edit/${tasks.id}`}><FiEdit/></Link>
                             </p>
                            <h3>{tasks.title}</h3>
                            <p>{tasks.description}</p>
@@ -31,4 +32,4 @@ const Card: React.FC<cardProps> = ({data}: cardProps) => {
     )
 };
 
-export default Card;
+export default React.memo(Card);

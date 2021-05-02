@@ -1,9 +1,9 @@
 import React from "react";
 import List from "./list";
-import Add from "./add";
 import {TaskContext} from "./../../context/taskContext/taskStore";
 import Button from "./../../components/button";
 import {taskType, contextType} from "./../../utils/types";
+import {Link} from "react-router-dom";
 import "./tasks.css"; 
 
 const defaultState = {
@@ -29,9 +29,7 @@ type taskDataType = {
 
 const Tasks: React.FC = () => {
     const {tasks, handleLocalStorage} = React.useContext<contextType>(TaskContext);
-    const [taskData, setTaskData] = React.useState<taskDataType>(taskDataDefaultState);
-    const [openModal, setModal] = React.useState<boolean>(false);
-    const [modalData, setModalData] = React.useState<taskType>(defaultState); 
+    const [taskData, setTaskData] = React.useState<taskDataType>(taskDataDefaultState); 
 
     React.useEffect(() => {
         (() => { 
@@ -43,19 +41,7 @@ const Tasks: React.FC = () => {
             setTaskData({start: [...startData], inProgress: [...progressData], completed: [...comepletedData]}); 
         })();
     },[tasks]); 
-
-    // handle add new task fn
-    const handleModal = (open: boolean) => {
-        setModalData(defaultState);
-        setModal(!openModal);
-    }
-
-    // Handle Card Edit fn
-    const handleEdit = (event: React.MouseEvent<HTMLButtonElement>, data: taskType) => {
-        setModalData(data);
-        setModal(true);
-    }
-
+ 
     // save to local storage fn
     const handleLocalState = (type: string) => {
         if(handleLocalStorage) {
@@ -68,27 +54,26 @@ const Tasks: React.FC = () => {
     }  
 
     return (
-        <div className="wrapper">
-            <div className="title-bar">
+        <>
+            <header className="title-bar">
                 <div>
                     <h1>My Tasks</h1>
-                    <Button title="add task" handleClick={e => handleModal(true)}/>
+                    <Link to="/task/add" className="link">Add </Link> 
                 </div>
                 <div className="button-group">
                     <Button title="save your board" handleClick={e => handleLocalState("save")}/>
                     <Button title="Clear your board" variant="text" handleClick={e => handleLocalState("delete")}/>
                 </div>
-            </div>
+            </header>
 
             <main>
                 <div className="tasks-list-wrapper">
-                    <List title="To do" data={taskData.start} handleEdit={handleEdit}/> 
-                    <List title="In progress..." data={taskData.inProgress} handleEdit={handleEdit}/>
-                    <List title="Completed" data={taskData.completed} handleEdit={handleEdit}/>
-                </div>
-                {openModal && <Add handleModal={handleModal} preFill={modalData}/>}
+                    <List title="To do" data={taskData.start}/> 
+                    <List title="In progress..." data={taskData.inProgress}/>
+                    <List title="Completed" data={taskData.completed}/>
+                </div> 
             </main> 
-        </div>
+        </>
     )
 };
 

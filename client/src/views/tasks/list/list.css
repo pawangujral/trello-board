@@ -8,3 +8,7 @@
     background-color: #f4f7f9;
     border-radius: 15px;
 }
+
+.list-area .card:last-child {
+    margin-bottom:0;
+}

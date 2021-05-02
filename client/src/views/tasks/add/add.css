@@ -1,20 +1,18 @@
-.form-modal {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 50%;
-    z-index: 9;
-    background: rgba(0,0,0,.5);
-    height: 100%;
+.form-modal {   
     background: #f4f7f9;
-    padding: 20px;
-    box-shadow: 2px 0px 6px #445;
+    padding: 15px; 
+    border-radius:15px;
 }
 
 .form-modal h2 { 
     color: #8593b4;
     font-weight: 300;
 } 
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
 
 .form-actions button{
     margin-right: 30px;

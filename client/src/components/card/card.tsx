@@ -2,14 +2,14 @@ import React from "react";
 import {taskType} from "./../../utils/types";
 import moment from "moment";
 import Button from "./../button";
+import {Link} from "react-router-dom";
 import "./card.css";
 
 interface cardProps {
-    data: taskType[];
-    handleEdit:  (event: React.MouseEvent<HTMLButtonElement>, data: any) => void;
+    data: taskType[]; 
 }
 
-const Card: React.FC<cardProps> = ({data, handleEdit}: cardProps) => {
+const Card: React.FC<cardProps> = ({data}: cardProps) => {
     return (
         <>
              {
@@ -18,7 +18,7 @@ const Card: React.FC<cardProps> = ({data, handleEdit}: cardProps) => {
                         <div className="card" key={tasks.id} data-id={tasks.id}>
                            <p className="card-header">
                                <span className={`card-tags ${tasks.tags}`}>{tasks.tags}</span>
-                               <Button title="Edit" variant="text" handleClick={e => handleEdit(e,tasks)}/>
+                               <Link to={`/task/edit/${tasks.id}`}>Edit</Link>
                             </p>
                            <h3>{tasks.title}</h3>
                            <p>{tasks.description}</p>

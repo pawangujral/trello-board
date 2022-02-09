@@ -5,18 +5,34 @@ Trello is task management tool where user can easily create todo tasks with diff
 
 ## Getting Started
 
-Unzip trello-board to a destination folder. The application is built on React framework.
+Clone trello-board to a destination folder. The application is built on React framework.
+
+### Git cloning
+
+Open bash/terminal and type following lines in your prefered folder (Make sure Git in installed locally).
+
+```bash
+git clone https://github.com/pawangujral/trello-board-react.git
+cd trello-board-react
+
+// check git current branch
+git branch
+
+// Change branch to feature/trello-board if required
+git checkout feature/trello-board
+```
+
 
 ### Install
 To install project dependencies, you can run at root folder:
 
 ```bash
-cd trello-board
+cd trello-board-react
 yarn 
 
 OR
 
-cd trello-board
+cd trello-board-react
 npm install 
 ``` 
 

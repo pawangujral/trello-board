@@ -14,11 +14,26 @@ export const TaskProvider: React.FC<providerProps> = ({
 }: providerProps) => {
   const [state, setState] = React.useState<cntxtType>(TASKS_DEFAULT_STATE);
 
-  React.useEffect(() => {
-    if (getStorageType('local', LOCAL_STORAGE_KEY)) {
-      const localData: { tasks: taskType[]} | string | boolean | null =
-        getStorageType('local', LOCAL_STORAGE_KEY);
-      localData && setState(JSON.parse(localData));
+    React.useEffect(() => {
+        if(getStorageType("local", LOCAL_STORAGE_KEY)) {
+            const localData: { tasks: taskType[]} | string | boolean | null = getStorageType("local", LOCAL_STORAGE_KEY);
+            localData && setState(JSON.parse(localData));
+        }  
+    },[]);
+
+    const handleLocalStorage = (type: string) => {
+        switch(type) {
+            case "save" :
+                setStorageType("local", LOCAL_STORAGE_KEY, JSON.stringify(state));
+                return true;
+            case "delete" :
+                removeStorageType("local", LOCAL_STORAGE_KEY);
+                setState({tasks: []});
+                return true;
+            break;
+            default:
+                return false;
+        } 
     }
   }, []);
 
